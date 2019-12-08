@@ -12,16 +12,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.app.Activity
-import android.content.Context
-import android.content.ContextWrapper
 import android.widget.Toast
 import com.example.smartmarksinput.R
 import com.example.smartmarksinput.dropDownInit
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.io.*
-import java.util.*
+import com.example.smartmarksinput.services.ImageProcessingService
 
 
 class MainActivity : AppCompatActivity() {
@@ -160,47 +154,35 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this@MainActivity, Activity.RESULT_OK.toString(), Toast.LENGTH_LONG).show()
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             val photo = data?.extras?.get("data") as Bitmap
-            var baos = ByteArrayOutputStream()
 
             var img = findViewById<ImageView>(R.id.imageView)
             img.setImageBitmap(photo)
 
-            val wrapper = ContextWrapper(applicationContext)
+            val imageProcessingService: ImageProcessingService = ImageProcessingService()
+            imageProcessingService.sendImage(photo)
 
-            // Initialize a new file instance to save bitmap object
-            var file = wrapper.getDir("Images",Context.MODE_PRIVATE)
-            file = File(file,"${UUID.randomUUID()}.jpg")
-            try{
-                // Compress the bitmap and save in jpg format
-                val stream: OutputStream = FileOutputStream(file)
-                photo.compress(Bitmap.CompressFormat.JPEG,50,stream)
-                stream.flush()
-                stream.close()
-            }catch (e: IOException){
-                e.printStackTrace()
-            }
 
-            val reqFile = RequestBody.create(MediaType.parse("image/*"), file)
-         //   MultipartBody.Part body = MultipartBody.Part.createFormData("upload", f.getName(), reqFile);
 
+//
+//            MultipartBody.Part body = MultipartBody . Part . createFormData ("upload", f.getName(), reqFile);
+//
 //            photo.compress(Bitmap.CompressFormat.JPEG, 50, baos)
 //            val imageBytes = baos.toByteArray()
 //            val imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-
-
-           // Log.d("imageString", imageBytes.toString())
-
-           // var f = File()
-            //Log.("TAG", photo)
-           // val f = File(Context.getCacheDir(), "test")
-            //f.createNewFile
+//
+//
+//            Log.d("imageString", imageBytes.toString())
+//
+//            var f = File()
+//            Log.("TAG", photo)
+//            val f = File(Context.getCacheDir(), "test")
+//            f.createNewFile
 //            val sizeBytes = getSizeFromBitmap(photo)
-//            Toast.makeText(this@MainActivity,sizeBytes.toString(), Toast.LENGTH_LONG).show()
+//            Toast.makeText(this@MainActivity, sizeBytes.toString(), Toast.LENGTH_LONG).show()
         } else {
             Toast.makeText(this@MainActivity, "in else", Toast.LENGTH_LONG).show()
         }
     }
-
 
 
 }
