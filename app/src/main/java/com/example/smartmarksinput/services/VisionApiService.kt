@@ -13,6 +13,10 @@ interface VisionApiService {
 
     @Headers("Ocp-Apim-Subscription-Key: 111174b0a48141309993a37a3fddf562", "Content-Type: application/octet-stream")
     @POST("vision/v2.0/read/core/asyncBatchAnalyze")
-   // fun postImage(@Body image: Bitmap): Call<ResponseBody>
     fun postImage(@Body image: RequestBody): Call<ResponseBody>
+
+    @Headers("Ocp-Apim-Subscription-Key: 111174b0a48141309993a37a3fddf562")
+    @GET
+    fun getExtractedImageData(@Url url: String): Call<ResponseBody>
+
 }

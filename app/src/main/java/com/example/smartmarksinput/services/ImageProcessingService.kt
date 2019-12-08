@@ -40,8 +40,9 @@ class ImageProcessingService {
                 if(response.isSuccessful){
                     Log.d("success", call.toString())
                     Log.d("success2", response.toString())
-                    val location = response.headers().get("Operation-Location")
-                    Log.d("Location_Azure", location.toString())
+                    getExtractedImageData(response.headers().get("Operation-Location").toString())
+                    //var location =
+
 
 
                 }
@@ -56,7 +57,28 @@ class ImageProcessingService {
     }
 
 
-    fun getExtractedImageData(location: String){
+    fun getExtractedImageData(_location: String){
+        var location: String
+        location = _location.replace("https://almabud.cognitiveservices.azure.com/","")
+        Log.d("Location_Azure", location.toString())
+
+        val visionApiService: VisionApiService = RetrofitClient.buildService(VisionApiService::class.java)
+        val requestCall: Call<ResponseBody> = visionApiService.getExtractedImageData(location)
+        requestCall.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<Any>, response: Response<ResponseBody>) {
+               Log.d("extracted_image", response.body().toString())
+                val test = response.body().toString()
+
+
+//                if(response.body("status").toString() == "Running"){
+//                    Log.d("Running_data", response.body().toString())
+//                }
+            }
+
+        })
 
     }
 }
