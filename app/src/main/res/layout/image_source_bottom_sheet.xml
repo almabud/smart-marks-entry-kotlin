@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/selectHint"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingLeft="10dp"
+        android:gravity="start|center"
+        android:text="Select Image Source" />
+
+    <Button
+        android:id="@+id/btnTakphoto"
+        android:background="@android:color/transparent"
+        android:gravity="start|center"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+
+        android:text="Take Photo" />
+
+
+    <Button
+        android:id="@+id/btnChoose"
+        android:background="@android:color/transparent"
+        android:gravity="start|center"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="Choose from Gallery" />
+    <Button
+        android:id="@+id/btnCancel"
+        android:background="@android:color/transparent"
+        android:gravity="start|center"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="Cancel" />
+</LinearLayout>
